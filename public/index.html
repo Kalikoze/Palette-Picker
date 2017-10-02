@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Palette Picker</title>
-    <link rel="stylesheet" type='text/css' href="/css/styles.css">
+    <link href="css/styles.css" rel="stylesheet" type='text/css'>
   </head>
   <body>
     <aside class='Projects'>
-      <input type="text" placeholder='Create a new project here...'>
+      <input id='create-project' type="text" placeholder='Create a new project here...'>
     </aside>
-    <header>
-      <select>
-      </select>
-      <input type="text" placeholder="Save your palette here...">
-      <h1>Palette Picker</h1>
-      <p>Press SpaceBar to Generate a New Color Palette</p>
-    </header>
     <main>
+      <header>
+        <select>
+        </select>
+        <input id='save-palette' type="text" placeholder="Save your palette here...">
+        <h1>Palette Picker</h1>
+        <p class='instructions'>Press SpaceBar to Generate a New Color Palette</p>
+      </header>
       <section>
         <p class='hex-value'></p>
       </section>
-      <p class='hex-value'></p>
+        <p class='hex-value'></p>
       <section>
         <p class='hex-value'></p>
       </section>
@@ -34,6 +34,7 @@
         <p class='hex-value'></p>
       </section>
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/scripts.js" charset="utf-8"></script>
   </body>
 </html>
