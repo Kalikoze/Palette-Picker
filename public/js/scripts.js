@@ -4,10 +4,30 @@ const ranColors = (e) => {
       return (~~(Math.random()*16)).toString(16)
     });
     $(color).css('backgroundColor', randomColor)
-    $(color).text(randomColor)
+    $(color).text(randomColor.toUpperCase())
   })
 }
 
-$(document).ready(ranColors);
+const createProj = e => {
+  const value = $('#create-project').val()
+  const colorValues = []
+  $('.colors').each((i, value) => colorValues.push($(value).text()))
+  $('.projects').prepend(`
+    <article class='project'>
+      <p>${value}</p>
+      <section class="project-colors">
+        <div class="box-color"></div>
+        <div class="box-color"></div>
+        <div class="box-color"></div>
+        <div class="box-color"></div>
+        <div class="box-color"></div>
+      </section>
+    </article>
+  `)
+  $('.box-color').each((i, div) => $(div).css('backgroundColor', colorValues[i]))
+  $('#create-project').val('')
+}
 
-$('body').keydown(e => e.keyCode === 32 ? ranColors() : null)
+$(document).ready(ranColors);
+$('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null)
+$('#create-project').keydown(e => e.keyCode === 13 ? createProj() : null)

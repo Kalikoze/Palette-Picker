@@ -14,13 +14,48 @@ body {
 aside {
   background-color: #3B3B3B;
   display: flex;
+  flex-wrap: wrap;
   height: 100vh;
-  overflow-y: auto;
   width: 20%;
 }
 
-aside::-webkit-scrollbar {
+.projects {
+  border: none;
+  color: white;
+  height: 95%;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.projects::-webkit-scrollbar {
   display: none;
+}
+
+.project {
+  border: 2px solid black;
+  height: 100px;
+  text-align: center;
+  width: 100%;
+}
+
+.project > p {
+  padding-top: 10px;
+  height: 50%;
+  width: 100%;
+}
+
+.project-colors {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+  width: 100%;
+}
+
+.box-color {
+  background-color: purple;
+  height: 100%;
+  width: 20%;
 }
 
 main {
@@ -86,8 +121,18 @@ section {
   border: 1px solid black;
   color: white;
   display: flex;
+  flex-direction: column-reverse;
   font-size: 24px;
-  justify-content: center;
+  align-items: center;
   height: 75%;
+  transition: ease 1s;
   width: 20%;
+}
+
+.hex-value {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100px;
+  padding-top: 50px;
+  text-align: center;
+  width: 100%;
 }
