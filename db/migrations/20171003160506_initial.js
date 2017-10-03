@@ -1,4 +1,3 @@
-
 exports.up = (knex, Promise) => {
   return Promise.all([
     knex.schema.createTable('projects', (table) => {
@@ -6,13 +5,16 @@ exports.up = (knex, Promise) => {
       table.string('projectName').unique();
       table.timestamps(true, true);
   }),
-
     knex.schema.createTable('colorPalettes', (table) => {
       table.increments('id').primary();
       table.string('paletteName');
-      table.array('paleteColors');
-      table.integer('project_id').unsigned();
-      table.foreign('project_id').references('projects.id')
+      table.string('paletteColor1');
+      table.string('paletteColor2');
+      table.string('paletteColor3')
+      table.string('paletteColor4')
+      table.string('paletteColor5')
+      table.integer('projectId').unsigned();
+      table.foreign('projectId').references('projects.id')
       table.timestamps(true, true);
     })
   ])
@@ -20,7 +22,7 @@ exports.up = (knex, Promise) => {
 
 exports.down = (knex, Promise) => {
   return Promise.all([
-    knex.schema.dropTable('projects'),
-    knex.schema.dropTable('colorPalettes')
+    knex.schema.dropTable('colorPalettes'),
+    knex.schema.dropTable('projects')
   ])
 };

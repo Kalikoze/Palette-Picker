@@ -1,10 +1,12 @@
-const ranColors = (e) => {
+const ranColors = () => {
   $('.colors').each((i, color) => {
     const randomColor = "#000000".replace(/0/g,() => {
       return (~~(Math.random()*16)).toString(16)
     });
-    $(color).css('backgroundColor', randomColor)
-    $(color).text(randomColor.toUpperCase())
+    if (!$(color).hasClass('locked')) {
+       $(color).css('backgroundColor', randomColor)
+       $(color).text(randomColor.toUpperCase())
+    }
   })
 }
 
@@ -40,7 +42,12 @@ const createPalette = () => {
   $('#save-palette').val('')
 }
 
+const toggleLocked = (e) => {
+  $(e.target).toggleClass('locked')
+}
+
 $(document).ready(ranColors);
-$('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null)
-$('#create-project').keydown(e => e.keyCode === 13 ? createProject() : null)
-$('#save-palette').keydown(e => e.keyCode === 13 ? createPalette() : null)
+$('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null);
+$('#create-project').keydown(e => e.keyCode === 13 ? createProject() : null);
+$('#save-palette').keydown(e => e.keyCode === 13 ? createPalette() : null);
+$('.colors').click(e => toggleLocked(e))

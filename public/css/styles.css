@@ -142,3 +142,14 @@ section {
   text-align: center;
   width: 100%;
 }
+
+.colors {
+  background-image: url('../assets/open-lock.svg');
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.locked {
+  background-image: url('../assets/padlock.svg');
+}
