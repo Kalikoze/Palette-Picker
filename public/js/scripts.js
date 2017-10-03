@@ -9,13 +9,12 @@ const ranColors = (e) => {
 }
 
 const createProj = e => {
-  const value = $('#create-project').val()
   const colorValues = []
   $('.colors').each((i, value) => colorValues.push($(value).text()))
   $('.projects').prepend(`
-    <article class='project'>
-      <p>${value}</p>
-      <section class="project-colors">
+    <article class='palette'>
+      <p>${$('#save-palette').val()}</p>
+      <section class="palette-colors">
         <div class="box-color"></div>
         <div class="box-color"></div>
         <div class="box-color"></div>
@@ -25,9 +24,9 @@ const createProj = e => {
     </article>
   `)
   $('.box-color').each((i, div) => $(div).css('backgroundColor', colorValues[i]))
-  $('#create-project').val('')
+  $('#save-palette').val('')
 }
 
 $(document).ready(ranColors);
 $('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null)
-$('#create-project').keydown(e => e.keyCode === 13 ? createProj() : null)
+$('#save-palette').keydown(e => e.keyCode === 13 ? createProj() : null)
