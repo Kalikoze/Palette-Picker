@@ -31,20 +31,20 @@ aside {
   display: none;
 }
 
-.project {
+.palette {
   border: 2px solid black;
   height: 100px;
   text-align: center;
   width: 100%;
 }
 
-.project > p {
+.palette > p {
   padding-top: 10px;
   height: 50%;
   width: 100%;
 }
 
-.project-colors {
+.palette-colors {
   border: none;
   display: flex;
   flex-direction: row;
