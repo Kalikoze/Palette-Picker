@@ -8,10 +8,23 @@ const ranColors = (e) => {
   })
 }
 
-const createProj = e => {
+const createProject = () => {
+  const projectValue = $('#create-project').val()
+  $('.projects').prepend(`
+    <section class='project'>
+      <p>${projectValue}</p>
+    </section>
+  `)
+  $('select').append(`
+    <option value='${projectValue}'>${projectValue}</option>
+  `)
+  $('#create-project').val('')
+}
+
+const createPalette = () => {
   const colorValues = []
   $('.colors').each((i, value) => colorValues.push($(value).text()))
-  $('.projects').prepend(`
+  $('.project').prepend(`
     <article class='palette'>
       <p>${$('#save-palette').val()}</p>
       <section class="palette-colors">
@@ -29,4 +42,5 @@ const createProj = e => {
 
 $(document).ready(ranColors);
 $('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null)
-$('#save-palette').keydown(e => e.keyCode === 13 ? createProj() : null)
+$('#create-project').keydown(e => e.keyCode === 13 ? createProject() : null)
+$('#save-palette').keydown(e => e.keyCode === 13 ? createPalette() : null)
