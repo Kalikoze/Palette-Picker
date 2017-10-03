@@ -31,6 +31,12 @@ aside {
   display: none;
 }
 
+.project {
+  border: 2px solid black;
+  height: auto;
+  width: 100%;
+}
+
 .palette {
   border: 2px solid black;
   height: 100px;
