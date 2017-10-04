@@ -22,6 +22,9 @@ aside {
 .projects {
   border: none;
   color: white;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   height: 95%;
   overflow-y: auto;
   width: 100%;
@@ -32,13 +35,14 @@ aside {
 }
 
 .project {
+  display: block;
   border: 2px solid black;
   height: auto;
+  text-align: center;
   width: 100%;
 }
 
 .palette {
-  border: 2px solid black;
   height: 100px;
   text-align: center;
   width: 100%;
