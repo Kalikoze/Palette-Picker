@@ -48,8 +48,12 @@ app.post('/api/palettes', (request, response) => {
   .catch(error => response.status(500).json({error}))
 })
 
-app.delete('/colorPalettes', (request, response) => {
-  response.sendStatus(200)
+app.delete('/api/palettes/:id', (request, response) => {
+  const {id} = request.params;
+
+  database('palettes').where('id', id).del()
+    .then(() => response.sendStatus(200))
+    .catch(error => response.status(500).json({error}))
 })
 
 app.listen(app.get('port'), () => {
