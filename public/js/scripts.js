@@ -24,8 +24,8 @@ const createProject = () => {
 }
 
 const createPalette = () => {
-  const colorValues = []
-  $('.colors').each((i, value) => colorValues.push($(value).text()))
+  const colorValues = [];
+  $('.colors').each((i, value) => colorValues.push($(value).text()));
   $('.project').prepend(`
     <article class='palette'>
       <p>${$('#save-palette').val()}</p>
@@ -37,9 +37,9 @@ const createPalette = () => {
         <div class="box-color"></div>
       </section>
     </article>
-  `)
-  $('.box-color').each((i, div) => $(div).css('backgroundColor', colorValues[i]))
-  $('#save-palette').val('')
+  `);
+  $('.box-color').each((i, div) => $(div).css('backgroundColor', colorValues[i]));
+  $('#save-palette').val('');
 }
 
 const toggleLocked = (e) => {
