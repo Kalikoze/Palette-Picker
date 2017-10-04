@@ -10,35 +10,77 @@ const ranColors = () => {
   })
 }
 
+const appendProject = (name, id) => {
+  $('.projects').prepend(`
+    <section class='project' data-projectId='${id}'>
+    <p>${name}</p>
+    </section>
+    `)
+    $('select').append(`
+      <option value='${name}'>${name}</option>
+      `)
+    }
+
+const postProject = (name) => {
+  fetch('/api/v1/projects', {
+    method: 'POST',
+    body: JSON.stringify({name}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())
+    .then(data => data[0].id ? appendProject(name, data[0].id) : null)
+    .catch(error => console.log(error))
+}
+
 const createProject = () => {
   const projectValue = $('#create-project').val()
-  $('.projects').prepend(`
-    <section class='project'>
-      <p>${projectValue}</p>
-    </section>
-  `)
-  $('select').append(`
-    <option value='${projectValue}'>${projectValue}</option>
-  `)
+  postProject(projectValue)
   $('#create-project').val('')
 }
 
+// const appendPalette = (name, colors) => {
+//   $('.project').prepend(`
+//     <article class='palette'>
+//       <p>${name}</p>
+//       <section class="palette-colors">
+//         <div class="box-color"></div>
+//         <div class="box-color"></div>
+//         <div class="box-color"></div>
+//         <div class="box-color"></div>
+//         <div class="box-color"></div>
+//       </section>
+//     </article>
+//   `);
+//   $('.box-color').each((i, div) => $(div).css('backgroundColor', colors[i]));
+// }
+//
+// const postPalette = (name, colors, projectId) => {
+//   fetch('/api/v1/palettes', {
+//     method: 'POST',
+//     body: JSON.stringify({
+//       name,
+//       color1: colors[0],
+//       color2: colors[1],
+//       color3: colors[2],
+//       color4: colors[3],
+//       color5: cooors[4],
+//       projectId
+//     }),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   }).then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch(error => console.log(error))
+// }
+
 const createPalette = () => {
+  const paletteValue = $('#save-palette').val()
   const colorValues = [];
+  console.log($('select'))
   $('.colors').each((i, value) => colorValues.push($(value).text()));
-  $('.project').prepend(`
-    <article class='palette'>
-      <p>${$('#save-palette').val()}</p>
-      <section class="palette-colors">
-        <div class="box-color"></div>
-        <div class="box-color"></div>
-        <div class="box-color"></div>
-        <div class="box-color"></div>
-        <div class="box-color"></div>
-      </section>
-    </article>
-  `);
-  $('.box-color').each((i, div) => $(div).css('backgroundColor', colorValues[i]));
+  // postPalette(paletteValue, colorValues)
   $('#save-palette').val('');
 }
 
