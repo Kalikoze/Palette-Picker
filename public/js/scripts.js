@@ -13,13 +13,19 @@ const ranColors = () => {
 const appendProject = (name, id) => {
   $('.projects').prepend(`
     <section class='project' data-projectId='${id}'>
-    <p>${name}</p>
+      <p>${name}</p>
     </section>
-    `)
-    $('select').append(`
-      <option value='${name}'>${name}</option>
-      `)
-    }
+  `)
+  $('select').append(`
+    <option value='${name}'>${name}</option>
+  `)
+}
+
+const getProjects = () => {
+  fetch('/api/v1/projects').then(response => response.json())
+    .then(data => data.forEach(project => appendProject(project.name, project.id)))
+    .catch(error => console.log(error))
+}
 
 const postProject = (name) => {
   fetch('/api/v1/projects', {
@@ -88,7 +94,7 @@ const toggleLocked = (e) => {
   $(e.target).toggleClass('locked')
 }
 
-$(document).ready(ranColors);
+$(document).ready(() => (ranColors(), getProjects()));
 $('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null);
 $('#create-project').keydown(e => e.keyCode === 13 ? createProject() : null);
 $('#save-palette').keydown(e => e.keyCode === 13 ? createPalette() : null);
