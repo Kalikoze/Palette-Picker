@@ -45,8 +45,8 @@ app.post('/api/v1/palettes', (request, response) => {
   if (!palette[requiredParameter]) {
     return response.status(422)
       .send({ error: `Expected format: { name: <String>, color1: <String>, 'color2': <String>, 'color3': <String>, 'color4': <String>, 'color5', 'projectId': <Integer> }. You're missing a ${requiredParameter} property.` });
+    }
   }
-}
 
   database('palettes').insert(palette, '*')
     .then(palette => response.status(201).json(palette))
@@ -57,7 +57,7 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
   const id = request.params;
 
   database('palettes').where(id).del()
-    .then(() => response.sendStatus(200))
+    .then(deleted => !deleted ? response.status(422).json({error: "Could not be found."}) : response.sendStatus(204))
     .catch(error => response.status(500).json({error}));
 });
 
