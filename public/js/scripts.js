@@ -23,7 +23,10 @@ const appendProject = (name, id) => {
 
 const getProjects = () => {
   fetch('/api/v1/projects').then(response => response.json())
-    .then(data => data.forEach(project => appendProject(project.name, project.id)))
+    .then(data => {
+      data.forEach(project => appendProject(project.name, project.id))
+      getPalettes();
+    })
     .catch(error => console.log(error))
 }
 
@@ -47,8 +50,11 @@ const createProject = () => {
 
 const appendPalette = (name, colors, projectId, paletteId) => {
   $(`.${projectId}`).append(`
-    <article class='palette'>
-      <p>${name}</p>
+    <article class='palette ${paletteId}'>
+      <div class="palette-info">
+        <p>${name}</p>
+        <button class='trash'></button>
+      </div>
       <section class="palette-colors">
         <div class="box-color ${paletteId}"></div>
         <div class="box-color ${paletteId}"></div>
@@ -58,7 +64,18 @@ const appendPalette = (name, colors, projectId, paletteId) => {
       </section>
     </article>
   `);
-  $(`.${paletteId}`).each((i, div) => $(div).css('backgroundColor', colors[i]));
+  $(`div.${paletteId}`).each((i, div) => $(div).css('backgroundColor', colors[i]));
+}
+
+const getPalettes = () => {
+  fetch('/api/v1/palettes').then(response => response.json())
+    .then(palettes => palettes.forEach(palette => {
+      const { name, color1, color2, color3, color4, color5, projectId, id} = palette;
+      const colors = [color1, color2, color3, color4, color5];
+
+      return appendPalette(name, colors, projectId, id)
+    }))
+    .catch(error => console.log(error))
 }
 
 const postPalette = (name, colors, projectId) => {
@@ -91,12 +108,31 @@ const createPalette = () => {
   $('#save-palette').val('');
 }
 
+const deletePalette = (e) => {
+  const id = $(e.target).parents('.palette').attr('class').split(' ')[1]
+
+  fetch(`/api/v1/palettes/${id}`, {
+    method: 'DELETE',
+  }).then(() => $(`.${id}`).remove())
+    .catch(error => console.log(error))
+}
+
 const toggleLocked = (e) => {
   $(e.target).toggleClass('locked')
 }
 
-$(document).ready(() => (ranColors(), getProjects()));
+const setup = () => {
+  ranColors();
+  getProjects();
+}
+
+$(document).ready(setup);
 $('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null);
 $('#create-project').keydown(e => e.keyCode === 13 ? createProject() : null);
 $('#save-palette').keydown(e => e.keyCode === 13 ? createPalette() : null);
 $('.colors').click(e => toggleLocked(e))
+$(document).on('click', '.fClick', function(){
+    alert("hey!");
+});
+
+$(document).on('click', 'button', e => deletePalette(e))
