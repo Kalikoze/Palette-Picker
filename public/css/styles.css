@@ -47,6 +47,10 @@ aside {
   width: 100%;
 }
 
+.palette:hover {
+  border: 2px solid white;
+}
+
 .palette-info {
   align-items: center;
   display: flex;

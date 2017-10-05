@@ -56,11 +56,11 @@ const appendPalette = (name, colors, projectId, paletteId) => {
         <button class='trash'></button>
       </div>
       <section class="palette-colors">
-        <div class="box-color ${paletteId}"></div>
-        <div class="box-color ${paletteId}"></div>
-        <div class="box-color ${paletteId}"></div>
-        <div class="box-color ${paletteId}"></div>
-        <div class="box-color ${paletteId}"></div>
+        <div class="box-color ${paletteId}" data-hex='${colors[0]}'></div>
+        <div class="box-color ${paletteId}" data-hex='${colors[1]}'></div>
+        <div class="box-color ${paletteId}" data-hex='${colors[2]}'></div>
+        <div class="box-color ${paletteId}" data-hex='${colors[3]}'></div>
+        <div class="box-color ${paletteId}" data-hex='${colors[4]}'></div>
       </section>
     </article>
   `);
@@ -117,9 +117,19 @@ const deletePalette = (e) => {
     .catch(error => console.log(error))
 }
 
+const clickPalette = (e) => {
+  const boxColorArray = $(e.target).parents('.palette').find('.box-color')
+  boxColorArray.each((i, color) => {
+    const hexValue = $(color).attr('data-hex')
+    const paletteMain = $('.colors')[i]
+    $(paletteMain).css('backgroundColor', hexValue)
+    $(paletteMain).text(hexValue)
+  });
+};
+
 const toggleLocked = (e) => {
-  $(e.target).toggleClass('locked')
-}
+  $(e.target).toggleClass('locked');
+};
 
 const setup = () => {
   ranColors();
@@ -130,9 +140,6 @@ $(document).ready(setup);
 $('body').keydown(e => e.keyCode === 32 && !$('input').is(':focus') ? ranColors() : null);
 $('#create-project').keydown(e => e.keyCode === 13 ? createProject() : null);
 $('#save-palette').keydown(e => e.keyCode === 13 ? createPalette() : null);
-$('.colors').click(e => toggleLocked(e))
-$(document).on('click', '.fClick', function(){
-    alert("hey!");
-});
-
-$(document).on('click', 'button', e => deletePalette(e))
+$('.colors').click(e => toggleLocked(e));
+$(document).on('click', 'button', e => deletePalette(e));
+$(document).on('click', 'article.palette', e => clickPalette(e));
