@@ -13,7 +13,7 @@ const ranColors = () => {
 const appendProject = (name, id) => {
   $('.projects').prepend(`
     <section class='project ${id}'>
-      <p>${name}</p>
+      <p>${name.toUpperCase()}</p>
     </section>
   `)
   $('select').append(`

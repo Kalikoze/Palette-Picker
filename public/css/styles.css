@@ -42,6 +42,11 @@ aside {
   width: 100%;
 }
 
+.project > p {
+  border-bottom: 2px solid #262626;
+  padding: 10px 0;
+}
+
 .palette {
   height: 100px;
   width: 100%;
@@ -54,13 +59,14 @@ aside {
 .palette-info {
   align-items: center;
   display: flex;
+  font-size: 16px;
   height: 50%;
   justify-content: center;
   width: 100%;
 }
 
 .palette > p {
-  padding-top: 10px;
+  padding: 10px 0;
   height: 100%;
   width: 80%;
 }
@@ -86,7 +92,6 @@ aside {
 }
 
 .box-color {
-  background-color: purple;
   height: 100%;
   width: 20%;
 }
