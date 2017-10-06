@@ -1,45 +1,49 @@
 const projectsData = [{
   id: 1,
-  name: 'First_Project'
+  name: 'First_Project',
   palettes: [{
+    id: 1,
     name: 'Pretty Colors',
     color1: '#89A286',
     color2: '#5B1328',
     color3: '#5D4987',
     color4: '#D016A0',
     color5: '#3A127B',
-    projectId: projectsData[0].id
+    projectId: 1
   },
   {
-    name: 'Second_Project',
+    id: 2,
+    name: 'Blah Colors',
     color1: '#73A9C9',
     color2: '#F00809',
     color3: '#0081E2',
     color4: '#E879C3',
     color5: '#B34805',
-    projectId: projectData[0].id
+    projectId: 1
   }]
 },
 {
-  id: 1,
-  name: 'Second_Project'
+  id: 2,
+  name: 'Second_Project',
   palettes: [{
-    name: 'Secondary Colors',
+    id: 3,
+    name: 'Magical Colors',
     color1: '#221494',
     color2: '#F00809',
     color3: '#7F0E39',
     color4: '#004BB3',
     color5: '#A96A87',
-    projectId: projectsData[1].id
+    projectId: 2
   },
   {
-    name: 'Second_Project',
+    id: 4,
+    name: 'Yuck Colors',
     color1: '#068AA1',
     color2: '#772E7B',
     color3: '#D0E38F',
     color4: '#C4E11B',
     color5: '#AF0F69',
-    projectId: projectData[1].id
+    projectId: 2
   }]
 },
 ]
@@ -67,7 +71,6 @@ const createPalette = (knex, palette) => {
 };
 
 exports.seed = (knex, Promise) => {
-  // Deletes ALL existing entries
   return knex('palettes').del()
     .then(() => knex('projects').del())
     .then(() => {
