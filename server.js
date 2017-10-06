@@ -43,11 +43,11 @@ app.set('port', process.env.PORT || 3000);
 // the database.
 app.get('/api/v1/projects', (request, response) => {
 
-  // This returns an array of all the projects we've added to the database.
-  //  Upon successful request, we will receive a status code of 200 along
-  // with the array of projects.  If something goes wrong with the server,
-  // then we receive a status code of 500 and an object explaining what the
-  // error is.
+  // This returns a promise, which then returns an array of all the projects
+  // we've added to the database. Upon successful request, we will receive a
+  // status code of 200 along with the array of projects.  If something goes
+  // wrong with the server, then we receive a status code of 500 and an object
+  // explaining what the error is.
   database('projects').select()
     .then(project => response.status(200).json(project))
     .catch(error => response.status(500).json({error}));
@@ -60,11 +60,11 @@ app.get('/api/v1/projects', (request, response) => {
 // of the palettes from the database.
 app.get('/api/v1/palettes', (request, response) => {
 
-  // This will return an array of all the palettes we've added to the database.
-  // Like before, upon successful request, we will receive a status code of
-  // 200 along with the array of palettes.  If the server is down or something
-  // isn't working, then we will receive a 500 status code with an object
-  // including the error.
+  // This will return a promise which then returns an array of all the palettes
+  // we've added to the database.  Like before, upon successful request, we
+  // will receive a status code of 200 along with the array of palettes.  If
+  // the server is down or something isn't working, then we will receive a 500
+  // status code with an object including the error.
   database('palettes').select()
     .then(palette => response.status(200).json(palette))
     .catch(error => response.status(500).json({error}));
