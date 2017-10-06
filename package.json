@@ -23,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/Kalikoze/Palette-Picker/issues"
   },
-  "homepage": "https://github.com/Kalikoze/Palette-Picker#readme"
+  "homepage": "https://github.com/Kalikoze/Palette-Picker#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^4.0.0"
+  }
 }

@@ -120,10 +120,10 @@ const deletePalette = (e) => {
 const clickPalette = (e) => {
   const boxColorArray = $(e.target).parents('.palette').find('.box-color')
   boxColorArray.each((i, color) => {
-    const hexValue = $(color).attr('data-hex')
-    const paletteMain = $('.colors')[i]
-    $(paletteMain).css('backgroundColor', hexValue)
-    $(paletteMain).text(hexValue)
+    const hexValue = $(color).attr('data-hex');
+    const paletteMain = $('.colors')[i];
+    $(paletteMain).css('backgroundColor', hexValue);
+    $(paletteMain).text(hexValue);
   });
 };
 
