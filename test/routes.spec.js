@@ -71,7 +71,7 @@ describe('API Routes', () => {
   });
 
   describe('GET /api/v1/palettes', () => {
-    it('should get all of the palettes', done => {
+    it.skip('should get all of the palettes', done => {
       chai.request(server)
       .get('/api/v1/palettes')
       .end((error, response) => {
