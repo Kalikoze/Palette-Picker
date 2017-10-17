@@ -10,24 +10,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
-const requireHTTPS = (req, res, next) => {
-    if (!req.secure) {
-        return res.redirect('https://' + req.get('host') + req.url);
-    }
-    next();
+const requireHTTPS = (request, response, next) => {
+  if (!req.secure) {
+      return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
 }
-
-app.use(requireHTTPS);
 
 app.set('port', process.env.PORT || 3000);
 
-app.get('/api/v1/projects', (request, response) => {
+app.get('/api/v1/projects', requireHTTPS, (request, response) => {
   database('projects').select()
     .then(project => response.status(200).json(project))
     .catch(error => response.status(500).json({error}));
 });
 
-app.get('/api/v1/palettes', (request, response) => {
+app.get('/api/v1/palettes', requireHTTPS, (request, response) => {
   database('palettes').select()
     .then(palette => response.status(200).json(palette))
     .catch(error => response.status(500).json({error}));
