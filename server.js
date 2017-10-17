@@ -5,15 +5,20 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 const path = require('path');
-const httpApp = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
-httpApp.get("*", (req, res, next) => {
-    res.redirect("https://" + req.headers.host + "/" + req.path);
-});
+const requireHTTPS = (request, response, next) => {
+	console.log(request.header)
+  if (request.header['X-Forwarded-Proto'] === 'http') {
+      return response.redirect('https://' + request.get('host') + request.url);
+  }
+  next();
+}
+
+app.use(requireHTTPS)
 
 app.set('port', process.env.PORT || 3000);
 
