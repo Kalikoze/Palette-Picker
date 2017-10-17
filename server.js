@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
 const requireHTTPS = (request, response, next) => {
-  if (!req.secure) {
-      return res.redirect('https://' + req.get('host') + req.url);
+  if (!request.secure) {
+      return response.redirect('https://' + request.get('host') + request.url);
   }
   next();
 }
