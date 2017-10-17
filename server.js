@@ -5,27 +5,25 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 const path = require('path');
+const httpApp = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
-const requireHTTPS = (request, response, next) => {
-  if (!request.secure) {
-      return response.redirect('https://' + request.get('host') + request.url);
-  }
-  next();
-}
+httpApp.get("*", (req, res, next) => {
+    res.redirect("https://" + req.headers.host + "/" + req.path);
+});
 
 app.set('port', process.env.PORT || 3000);
 
-app.get('/api/v1/projects', requireHTTPS, (request, response) => {
+app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
     .then(project => response.status(200).json(project))
     .catch(error => response.status(500).json({error}));
 });
 
-app.get('/api/v1/palettes', requireHTTPS, (request, response) => {
+app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
     .then(palette => response.status(200).json(palette))
     .catch(error => response.status(500).json({error}));
