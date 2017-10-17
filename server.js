@@ -10,6 +10,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
+const requireHTTPS = (req, res, next) => {
+    if (!req.secure) {
+        return res.redirect('https://' + req.get('host') + req.url);
+    }
+    next();
+}
+
+app.use(requireHTTPS);
+
 app.set('port', process.env.PORT || 3000);
 
 app.get('/api/v1/projects', (request, response) => {
